@@ -18,7 +18,7 @@
 # Listas
 
 (milista <- list(nombre = "Pepe", no.hijos = 3, edades.hijos = c(4, 7, 9)))
-
+milista["nombre"]
 # propiedades de la lista
 
 str(milista)
@@ -66,3 +66,5 @@ mifile
 
 mifile$sexo <- NULL
 mifile
+
+lista1 <- list(listaPrueba = milista, dfPrueba = mifile)

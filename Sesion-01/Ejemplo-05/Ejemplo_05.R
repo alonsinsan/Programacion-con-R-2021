@@ -14,18 +14,19 @@
 # Se instalan de la siguiente manera
 
 install.packages("ggplot2") #siempre lleva  comillas
-
+install.packages('beepr')
 # Una vez que se instaló, se debe de cargar
 
 library(ggplot2) # Se omite el uso de las comillas
-
 # Otro ejemplo
 
 install.packages("dplyr")
 library(dplyr)
-
 # Algo útil es revisar la versión que se tiene de R, ya que en ocasiones no se instalan ciertos paquetes por la incompatibilidad de R, el siguiente comando nos indicará la versión que estamos trabajando.
 
 version
 
 # También se puede realizar esta acción en la pestaña de Packages, intentalo.
+install.packages('readxl')
+
+beepr::beep('mario')

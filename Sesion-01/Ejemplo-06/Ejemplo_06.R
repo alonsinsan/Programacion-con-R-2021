@@ -18,7 +18,8 @@ print("Este loop calcula el cuadrado de los 10 primeros elementos del vector w")
 
 # inicializando la varialbe wsq
 
-wsq <- 0
+wsq <- c()
+w[1:10]^2
 
 for(i in 1:10) {
   wsq[i] <- w[i]**2

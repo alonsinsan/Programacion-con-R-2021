@@ -16,7 +16,9 @@
   
 (var.hola <- "Hola Mundo")
 (var.number <- 5L)
-(var.double <- 2.7076)
+(var.number2 <- 5)
+var.number3 <- 625L
+(var.double <- 2.70761384912731723172634172318237812739139812398127181)
 (var.logical <- T)
 (vector <- c(1,2))
 
@@ -49,26 +51,26 @@ b[4]
 
 # Para unir 2 vectores
 
-c(a,b)
+d <- c(a,b)
+d <- c(c('1','2','3'), c(1,2,3))
 
 # Organizarlos con la función sort, cambia la F por T y observa que ocurre
 
-sort(c(a,b), decreasing = F)
+sort(c(a,b), decreasing = T)
 
 # Otra forma de generar el vector es de la siguiente manera, utilizando ":"
 
 3:12  # así de sencillo es
-
+f <- 1:100
 # Intenta los siguientes y prueba con otras que se te vengan a la imaginación
 
 10:1
 1:1000
 0:10
-
 # También se pueden generar vectores que no sean sucesivos con la función seq, intenta cambiar el valor de los argumentos y observa el comportamiento de los vectores
 
 (vector.by2 <- seq(from = 1, to = 10, by =2))
-
+seq(1.575, 5.125, by = 0.05)
 (vector.by3 <- seq(1, 10, 3))
 
 # Para repetir un número o un vector un determinado número de ocasiones utilizamos rep
@@ -77,7 +79,7 @@ rep(5, times = 6)
 
 # Observa que hace el siguiente comando con los vectores a y b
 
-rep(a, 2)
+c(rep(a, 2),rep(b, 3))
 rep(b, 3)
 
 # Reciclaje, al hacer operaciones entre vectores, R repetirá los valores del vector, hasta alcanzar la dimensión requerida

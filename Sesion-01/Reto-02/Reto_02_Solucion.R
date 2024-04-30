@@ -1,7 +1,7 @@
 # Reto 2
 
 amazon.best <- read.csv("https://raw.githubusercontent.com/ecoronadoj/Sesion_1/main/Data/bestsellers%20with%20categories.csv")
-
+amazon.best <- read.csv("Data/bestsellers with categories.csv")
 # Convirtiendo el DF a transpuesto y en un data frame 
 tAmazon <- as.data.frame(t(amazon.best))
 

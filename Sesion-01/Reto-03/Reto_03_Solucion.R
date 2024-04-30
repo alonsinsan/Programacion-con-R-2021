@@ -3,6 +3,7 @@
 # generando el vector de 44 posiciones aleatorio
 
 ran <- rnorm(44)
+ran <- runif(44,0,10)
 
 # creando el loop que eleva al cubo y suma 12 a cada posición 
 el <- vector()

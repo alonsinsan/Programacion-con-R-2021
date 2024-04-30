@@ -18,7 +18,7 @@
 
 # Crear Matrices. 
 
-(m <- matrix(1:9, nrow = 3, ncol = 3))
+(m <- matrix(1:9, nrow = 3, ncol = 3, byrow = T))
 
 # Extrayendo la primera entrada
 
@@ -64,15 +64,23 @@ rbind(a,b)
 # Aplicando una función a las filas o columnas de una matriz (mean, sort)
 
 apply(n, 1, mean)
-apply(n, 2, sort)
-
+apply(n, 2, mean)
+m <- matrix(3:5,4,4)
 # Algunas operaciones básicas de matrices
 
 # Producto matricial: A %*% B
+n%%m
+n*m
 # Producto elemento a elemento: A*B
 # Traspuesta: t(A)
+t(n)
 # Determinante: det(A)
+det(m)
 # Extraer la diagonal: diag(A)
+diag(m)
 # Resolver un sistema de ecuaciones lineales (( Ax=b )): solve(A,b)
+
 # Inversa: solve(A)
+solve(m)
 # Autovalores y autovectores: eigen(A)
+eigen(m)

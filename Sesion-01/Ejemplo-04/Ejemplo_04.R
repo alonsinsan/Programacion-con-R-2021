@@ -29,7 +29,7 @@ read.csv("bestsellers with categories.csv") # El archivo csv debe estar en el di
 
 # se puede asignar a un objeto el fichero leido anteriormente
 
-amazon.books <- read.csv("bestsellers with categories.csv")
+amazon.books <- read.csv("Data/bestsellers with categories.csv")
 tail(amazon.books); str(amazon.books)
 
 # También se puede leer el fichero directamente desde una URL
