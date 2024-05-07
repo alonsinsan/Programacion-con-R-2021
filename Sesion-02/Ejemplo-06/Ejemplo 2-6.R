@@ -33,11 +33,12 @@ sum(bien)
 # Podemos filtrar aquellas filas sin NA's de la siguiente manera
 
 airquality[bien,]
+data2 <- airquality[complete.cases(airquality),]
 
 data <- select(airquality, Ozone:Temp)
 apply(data, 2, mean)
 apply(data, 2, mean, na.rm = T)
-
+apply(data2,2, mean)
 # `na.omit` devuelve el objeto con casos incompletos eliminados
 
 (m1 <- apply(na.omit(data), 2, mean))

@@ -24,11 +24,13 @@ summary(mtcars)
 # ajustes a modelos
 
 set.seed(57)
-x <- rnorm(35)
+x1 <- rnorm(35)
+x2 <- rnorm(35)
 e <- rnorm(35)
-y <- 5 + 2*x + e
-modelo <- lm(y~x)
-summary(modelo)
+y <- 5 + 2*x1 +4*x2 + e
+modelo1 <- lm(y~x1) # y = a+b*x1
+modelo2 <- lm(y~x1+x2) # y = a+b*x1+c*x2
+summary(modelo2)
 
 # Función head
 

@@ -15,8 +15,8 @@ url2 <- "https://data.humdata.org/hxlproxy/data/download/time_series_covid19_dea
 
 # Descargamos los datos en nuestro directorio de trabajo con la siguiente instrucción
 
-download.file(url = url1, destfile = "st19ncov-confirmados.csv", mode = "wb")
-download.file(url = url2, destfile = "st19ncov-muertes.csv", mode = "wb")
+download.file(url = url1, destfile = "st19ncov-confirmados.csv", mode = "w")
+download.file(url = url2, destfile = "st19ncov-muertes.csv", mode = "w")
 
 # Una vez que hemos descargado los datos importamos los datos de casos
 # confirmados y muertes a R
@@ -36,14 +36,16 @@ Smu <- mu[-1,]
 # Con la función select del paquete dplyr, del data frame de casos confirmados
 # seleccionamos únicamente las columnas de País, Fecha, Número acumulado de casos
 
-Sconf <- select(Sconf, Country.Region, Date, Value) # País, fecha y acumulado de infectados
-
+Sconf1 <- select(Sconf, Country.Region, Date, Value) # País, fecha y acumulado de infectados
+Sconf1 <- Sconf %>%
+  select(Country.Region, Date, Value)
+  
 # Con la función rename, renombramos las columnas correspondientes al país
 # y al número acumulado de casos de infectados por covid-19
 
-Sconf <- rename(Sconf, Pais = Country.Region, Fecha = Date, Infectados = Value)
+Sconf1 <- rename(Sconf, Pais = Country.Region, Fecha = Date, Infectados = Value)
 
-str(Sconf)
+str(Sconf1)
 
 # Como cada una de las columnas del último data frame aparecen como factor,
 # con la función mutate transformamos las columnas correspondientes a fechas
@@ -53,6 +55,11 @@ str(Sconf)
 
 Sconf <- mutate(Sconf, Fecha = as.Date(Fecha, "%Y-%m-%d"), Infectados = as.numeric(Infectados))
 
+Sconf2 <- Sconf %>%
+  select(Country.Region, Date, Value) %>%
+  rename(Pais = Country.Region, Fecha = Date, Infectados = Value) %>%
+  mutate(Fecha = as.Date(Fecha, "%Y-%m-%d")
+         , Infectados = as.numeric(Infectados))
 # Hacemos algo similar con el data frame correspondiente al número
 # acumulado de muertos
 
@@ -61,7 +68,7 @@ Smu <- rename(Smu, Pais = Country.Region, Fecha = Date, Muertos = Value) # Renom
 Smu <- mutate(Smu, Fecha = as.Date(Fecha, "%Y-%m-%d"), Muertos = as.numeric(Muertos)) # Transformamos
 
 
-Scm <- merge(Sconf, Smu) # Unimos infectados y muertos acumulados para cada fecha
+Scm <- merge(Sconf2, Smu, by.x = c("Pais", "Fecha"), by.y = c("Pais", "Fecha")) # Unimos infectados y muertos acumulados para cada fecha
 
 mex <- filter(Scm, Pais == "Mexico") # Seleccionamos sólo a México
 mex <- filter(mex, Infectados != 0) # Primer día de infectados
@@ -76,6 +83,11 @@ mex <- mutate(mex, Letalidad = round(Muertos/Infectados*100, 1)) # Tasa de letal
 mex <- mutate(mex, IDA = lag(Infectados), MDA = lag(Muertos)) # Valores día anterior
 mex <- mutate(mex, FCI = Infectados/IDA, FCM = Muertos/MDA) # Factores de Crecimiento
 mex <- mutate(mex, Dia = 1:dim(mex)[1]) # Días de contingencia
+
+mex <- mex %>%
+  mutate(IDA = lag(Infectados), MDA = lag(Muertos),
+         FCI = Infectados/IDA, FCM = Muertos/MDA,
+         Dia = 1:dim(mex)[1])
 
 head(mex); tail(mex)
 write.csv(mex, "C19Mexico.csv", row.names = FALSE)

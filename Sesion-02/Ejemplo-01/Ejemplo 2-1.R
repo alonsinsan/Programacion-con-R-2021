@@ -5,15 +5,13 @@
 # En R utilizamos la función mean para calcular la media de un conjunto de
 # mediciones, por ejemplo
 
-x = c(4000, 9000, 9000, 10000); mean(x)
-
+x = c(4000, 9000.1, 9000, 10000, 3000, 12000,6000); mean(x)
 # Para calcular la mediana, utilizamos la función median, por ejemplo
-
 median(x)
-
+boxplot(x)
 # Si lo que deseamos es obtener la moda de un conjunto de mediciones, una 
 # alternativa es instalar el paquete DescTools en R mediante la instrucción
-# install.packages("DescTools"), luego utilizamos la función Mode del paquete
+install.packages("DescTools")#, # luego utilizamos la función Mode del paquete
 # DescTools
 
 library(DescTools)
@@ -29,6 +27,7 @@ x <- c(29, 13, 62, 4, 63, 96, 1, 90, 50, 46)
 quantile(x, 0.25) # cuantil del 25%
 quantile(x, c(0.25,0.50,0.75)) # Cuartiles
 quantile(x, seq(0.1,0.9, by = 0.1)) # Deciles
+boxplot(x)
 
 # Medidas de Dispersión
 
@@ -40,6 +39,8 @@ IQR(x)
 # o bien
 
 quantile(x, probs = 0.75) - quantile(x, probs = 0.25)
+quantile(x, 0.25) - 1.5*IQR(x)
+quantile(x,0.75) + 1.5*IQR(x)
 
 # La varianza y desviación estándar muestral en R las calculamos con las 
 # siguientes instrucciones respectivamente

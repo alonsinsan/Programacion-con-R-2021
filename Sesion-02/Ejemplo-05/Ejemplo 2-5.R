@@ -7,7 +7,7 @@
 
 X <- matrix(1:49, ncol = 7)
 X
-apply(X, 1, mean) # cálculo de la media para las filas
+x1 <- apply(X, 1, mean) # cálculo de la media para las filas
 apply(X, 2, median) # cálculo de la mediana para las columnas
 
 
@@ -38,17 +38,17 @@ download.file(url = u1314, destfile = "SP1-1314.csv", mode = "wb")
 # podemos visualizar el nombre de los archivos descargados en un vector
 # de strings de la siguiente manera
 
-dir()
-
+x <- dir()
+x <- list.files(".", pattern = "SP1*")
 # podemos leer con una sola instrucción los archivos descargados
 # usando la función lapply de la siguiente manera
 
-lista <- lapply(dir(), read.csv) # Guardamos los archivos en lista
-
+lista <- lapply(x, read.csv) # Guardamos los archivos en lista
+names(lista) <- x
 # los elementos de lista son los archivos csv leidos y se encuentran
 # como data frames
-
-lista <- lapply(lista, select, Date:FTR) # seleccionamos solo algunas columnas de cada data frame
+# list-apply -> (list, FUN)
+lista2 <- lapply(lista, select, Date:FTR) # seleccionamos solo algunas columnas de cada data frame
 head(lista[[1]]); head(lista[[2]]); head(lista[[3]]); head(lista[[4]])
 
 # cada uno de los data frames que tenemos en lista, los podemos combinar
@@ -56,8 +56,9 @@ head(lista[[1]]); head(lista[[2]]); head(lista[[3]]); head(lista[[4]])
 # de la siguiente manera
 
 # Función do.call
+# do-call -> (FUN, x)
 
-data <- do.call(rbind, lista)
+data <- do.call(rbind, lista2)
 head(data)
 dim(data)
 
