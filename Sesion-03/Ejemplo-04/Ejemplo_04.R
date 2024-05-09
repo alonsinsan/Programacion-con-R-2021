@@ -1,12 +1,12 @@
 # Comenzamos leyendo un fichero, el cual contiene información sobre dos grupos de control G1 y G2, a los cuales se les realizó a cada uno una medición en 3 momentos diferentes C1, C2 y C3
 # library(dplyr) # para usar mutate
-data <- read.csv("../Sesion_03/boxp.csv")
+data <- read.csv("Data/boxp.csv")
 
 # Revisamos el encabezado del fichero y el nombre de sus variables o columnas
 
 head(data)
 names(data)
-
+str(data)
 # Observamos algunos datos estadísticos sobre las variables
 
 summary(data)
@@ -15,8 +15,10 @@ summary(data)
 
 bien <- complete.cases(data)
 data <- data[bien,]
-data <- mutate(data, Categoria = factor(Categoria), Grupo = factor(Grupo))
+summary(data)
 
+data <- mutate(data, Categoria = factor(Categoria), Grupo = factor(Grupo))
+str(data)
 # Finalmente realizamos el boxplot
 
 ggplot(data, aes(x = Categoria, y = Mediciones, fill = Grupo)) + geom_boxplot() +
@@ -32,3 +34,12 @@ ggplot(data, aes(x = Categoria, y = Mediciones, fill = Grupo)) + geom_boxplot() 
   xlab("Categorias") +
   ylab("Mediciones")
 
+library(DescTools)
+# Cálculo de límites para outliers
+data %>% 
+  group_by(Categoria, Grupo) %>%
+  summarize(iqr = IQR(Mediciones)
+            , q25 = quantile(Mediciones, 0.25)
+            , q75 = quantile(Mediciones, 0.75)) %>%
+  mutate(lim_inf = q25 - 1.5*iqr,
+         lim_sup = q75 + 1.5*iqr)

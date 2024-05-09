@@ -6,10 +6,11 @@ library(scales) # Para mejorar la lectura de las etiquetas  en el eje de las x d
 # Ahora vamos a leer nuestro archivo C19Mexico.csv con los infectados y muertos acumulados para cada fecha
 
 mex <- read.csv("C19Mexico.csv")
+mex <- C19Mexico
 
 head(mex); tail(mex)
-
-mex <- mutate(mex, Fecha = as.Date(Fecha, "%Y-%m-%d"))
+str(mex)
+#mex <- mutate(mex, Fecha = as.Date(Fecha, "%Y-%m-%d"))
 str(mex)
 
 ####################################################################
@@ -29,10 +30,10 @@ p <- ggplot(mex, aes(x=Fecha, y=Infectados)) +
                             usetz=TRUE))) +
   theme(plot.title = element_text(size=12))  +
   theme(axis.text.x = element_text(face = "bold", color="#993333" , 
-                                   size = 10, angle = 45, 
+                                   size = 10, angle = 90, 
                                    hjust = 1),
         axis.text.y = element_text(face = "bold", color="#993333" , 
-                                   size = 10, angle = 45, 
+                                   size = 10, angle = 90, 
                                    hjust = 1))  # color, ángulo y estilo de las abcisas y ordenadas 
 
 p <- p  + scale_x_date(labels = date_format("%d-%m-%Y")) # paquete scales
@@ -40,13 +41,21 @@ p <- p  + scale_x_date(labels = date_format("%d-%m-%Y")) # paquete scales
 ###
 
 p <- p +
-  theme(plot.margin=margin(10,10,20,10), plot.caption=element_text(hjust=1.05, size=10)) +
-  annotate("text", x = mex$Fecha[round(dim(mex)[1]*0.4)], y = max(mex$Infectados), colour = "blue", size = 5, label = paste("Última actualización: ", mex$Infectados[dim(mex)[1]]))
+  theme(plot.margin=margin(10,10,20,10)
+        , plot.caption=element_text(hjust=1.05
+                                    , size=10)) +
+  annotate("text"
+           , x = mex$Fecha[round(dim(mex)[1]*0.4)]
+           , y = max(mex$Infectados)
+           , colour = "blue"
+           , size = 5
+           , label = paste("Última actualización: "
+                           , mex$Infectados[dim(mex)[1]]))
 p
 
 # Casos Confirmados por Día
 
-p <- ggplot(mex, aes(x=Fecha, y=NI)) + 
+p1 <- ggplot(mex, aes(x=Fecha, y=NI)) + 
   geom_line(stat = "identity") + 
   labs(x = "Fecha", y = "Incidencia (Número de casos nuevos)",
        title = paste("Casos de Incidencia de COVID-19 en México:", 
@@ -56,16 +65,16 @@ p <- ggplot(mex, aes(x=Fecha, y=NI)) +
   theme(axis.text.x = element_text(face = "bold", color="#993333" , size = 10, angle = 45, hjust = 1),
         axis.text.y = element_text(face = "bold", color="#993333" , size = 10, angle = 45, hjust = 1))  # color, Ángulo y estilo de las abcisas y ordenadas
 
-p <- p  + scale_x_date(labels = date_format("%d-%m-%Y")) # paquete scales
-p
+p1 <- p1  + scale_x_date(labels = date_format("%d-%m-%Y")) # paquete scales
+p1
 
 ###
 
-p <- p +
+p1 <- p1 +
   theme(plot.margin=margin(10,10,20,10), plot.caption=element_text(hjust=1.05, size=10)) +
   annotate("text", x = mex$Fecha[round(dim(mex)[1]*0.4)], y = max(mex$NI), colour = "blue", size = 5, 
            label = paste("Última actualización: ", mex$NI[length(mex$NI)]))
-p
+p1
 
 # Muertes Acumuladas
 
@@ -101,7 +110,7 @@ p <- ggplot(mexm, aes(x=Fecha, y=NM)) +
   theme(axis.text.x = element_text(face = "bold", color="#993333" , size = 10, angle = 45, hjust = 1),
         axis.text.y = element_text(face = "bold", color="#993333" , size = 10, angle = 45, hjust = 1))  # color, Ángulo y estilo de las abcisas y ordenadas
 
-p <- p  + scale_x_date(labels = date_format("%d-%m-%Y"))
+p <- p  + scale_x_date(labels = date_format("%m-%d-%Y"))
 
 ###
 
@@ -157,9 +166,9 @@ p
 
 # El factor de crecimiento de infectados para un día determinado, lo calculamos al dividir el acumulado de infectados para ese día, entre el acumulado de infectados del día anterior. El factor de crecimiento de muertes lo calculamos de forma similar.
 
-mex <- filter(mex, FCM < Inf) # Tomamos solo valores reales de factores de crecimiento
+#mex <- filter(mex, FCM < Inf) # Tomamos solo valores reales de factores de crecimiento
 
-p <- ggplot(mex, aes(x=Fecha, y=FCI)) + geom_line(color="blue") + 
+p <- ggplot(mex %>% filter(FCM < Inf), aes(x=Fecha, y=FCI)) + geom_line(color="blue") + 
   labs(x = "Fecha", 
        y = "Factor de crecimiento",
        title = paste("COVID-19 en México:", format(Sys.time(), tz="America/Mexico_City",usetz=TRUE))) +
@@ -167,7 +176,7 @@ p <- ggplot(mex, aes(x=Fecha, y=FCI)) + geom_line(color="blue") +
   theme(axis.text.x = element_text(face = "bold", color="#993333" , size = 10, angle = 45, hjust = 1),
         axis.text.y = element_text(face = "bold", color="#993333" , size = 10, angle = 45, hjust = 1))  # color, Ángulo y estilo de las abcisas y ordenadas
 
-p <- p  + scale_x_date(labels = date_format("%d-%m-%Y"))
+p <- p  + scale_x_date(labels = date_format("%B-%Y"))
 
 ###
 

@@ -11,7 +11,7 @@
 
 
 # Leyendo los datos de la NBa, 
-nba <- read.csv("players_stats.csv")
+nba <- read.csv("Reto-02/players_stats.csv")
 names(nba)
 
 # 1. Histograma de los minuntos totales de losjugadores y la media

@@ -7,7 +7,7 @@
 
 # **Solución**
 
-CBE <- read.csv("cbe.csv")
+CBE <- read.csv("Reto-03/cbe.csv")
 Elec.ts <- ts(CBE[, 3], start = 1958, freq = 12)
 
 # Modelo Multiplicativo
