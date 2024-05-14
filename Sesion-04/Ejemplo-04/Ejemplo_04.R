@@ -35,10 +35,11 @@ title(main = "Densidad normal estándar", sub = expression(paste(mu == 0, " y ",
 
 polygon(c(z0, x[x>=z0], max(x)), c(0, y[x>=z0], 0), col="red")
 axis(side = 1, at = z0, font = 2, padj = 1, lwd = 2)
+
 # Contraste de cola inferior
 # Dada una muestra aleatoria de tamaño n = 45
 
-set.seed(174)
+set.seed(1741)
 muestra <- sample(x = c(1, 0), size = 45, replace = TRUE, prob = c(0.67, 0.33)); 0.67 # media real de la población
 tail(as.data.frame(muestra))
 # estamos interesados en contrastar las hipótesis H0: p = 0.9 vs H1: p < 0.9 (contraste de cola inferior)

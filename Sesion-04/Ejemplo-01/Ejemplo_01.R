@@ -19,14 +19,14 @@ library(reshape2)
 # Para obtener P(X = 20), es decir, la probabilidad de observar
 # 20 éxitos exactamente, en `R` ejecutamos
 
-dbinom(x = 20, size = 30, prob = 0.2)
-
+x <- dbinom(x = seq(1,30), size = 30, prob = 1/6)
+plot(x)
 #### Función de distribución
 
 # Para obtener P(X <= 20), es decir, la probabilidad de observar
 # a lo más 20 éxitos, en `R` corremos
 
-pbinom(q = 20, size = 30, prob = 0.2)
+pbinom(q = 5, size = 30, prob = 1/6)
 
 # Para encontrar el valor más pequeño b tal que P(X <= b) >= 0.35,
 # es decir, el cuantil de orden 0.35, usamos
@@ -46,12 +46,12 @@ pbinom(q = 6, size = 30, prob = 0.2) # P(X <= 6) = 0.6070 >= 0.35
 # hacemos
 
 set.seed(4857) # Establecemos una semilla, para poder reproducir la muestra en el futuro
-muestra <- rbinom(n = 1000, size = 30, prob = 0.2)
+muestra <- rbinom(n = 1000000, size = 30, prob = 0.2)
 length(muestra); muestra[1:3]
-
+hist(muestra)
 # Podemos observar las frecuencias absolutas de los distintos valores
 # obtenidos
-
+table(muestra)
 as.data.frame(table(muestra))
 
 # También podemos observar las frecuencias relativas
@@ -64,7 +64,7 @@ valg <- as.character(df1$muestra) # distintos valores generados por rbinom
 # Las frecuencias relativas son muy parecidas a las siguientes probabilidades
 
 (v1 <- round(sapply(valg, dbinom, size = 30, p = 0.2), 3))
-
+v1 <- dbinom(seq(0,18), size = 30, p=0.2)
 # Combinamos df1 y v1 en un único data frame
 
 (df2 <- cbind(df1, v1))
@@ -101,7 +101,7 @@ abline(v = 175, lwd = 2, lty = 2) # La media es 175
 # Para obtener P(X <= 180), es decir, la probabilidad de que X tome un valor
 # menor o igual a 180, ejecutamos
 
-pnorm(q = 180, mean = 175, sd = 6)
+pnorm(q = 181, mean = 175, sd = 6)
 
 par(mfrow = c(2, 2))
 # Observemos la región que corresponde a esta probabilidad en la siguiente gráfica en color rojo
@@ -155,10 +155,10 @@ dev.off() # Para mostrar solo una gráfica
 # el cuantil de orden 0.75, ejecutamos
 
 (b <- qnorm(p = 0.75, mean = 175, sd = 6)) 
-
+c <- b-175
 # Comprobamos
 
-pnorm(b, 175, 6)
+pnorm(175-c, 175, 6)
 
 # El cuantil se encuentra en el eje de medición (eje horizontal)
 
@@ -173,7 +173,7 @@ axis(side = 1, at = b, font = 2, padj = 1, lwd = 2)
 # corremos la siguiente instrucción
 
 set.seed(7563) # Para poder reproducir la muestra en el futuro
-muestra <- rnorm(n = 1000, mean = 175, sd = 6)
+muestra <- rnorm(n = 100000, mean = 175, sd = 6)
 length(muestra); mdf <- as.data.frame(muestra)
 tail(mdf)
 
@@ -184,7 +184,7 @@ ggplot(mdf, aes(muestra)) +
   geom_histogram(colour = 'red', 
                  fill = 'blue',
                  alpha = 0.3, # Intensidad del color fill
-                 binwidth = 3) + 
+                 binwidth = 1) + 
   geom_density(aes(y = 3*..count..))+
   geom_vline(xintercept = mean(mdf$muestra), linetype="dashed", color = "black") + 
   ggtitle('Histograma para la muestra normal') + 
@@ -232,7 +232,7 @@ segments(x0 = xf, y0 = 0, x1 = xf, y1 = yf,
 #### Función de densidad
 
 x <- seq(-4, 4, 0.01) # Algunos valores que puede tomar la v.a. T con 7 gl
-y <- dt(x, df = 7) # Valores correspondientes de la densidad t de Student con 7 gl
+y <- dt(x, df = 25) # Valores correspondientes de la densidad t de Student con 7 gl
 plot(x, y, type = "l", main = "Densidad t de Student, gl = 7", xlab="", ylab="")
 abline(v = 0, lwd=2, lty=2)
 
@@ -279,7 +279,7 @@ axis(side = 1, at = d, font = 2, padj = 1, lwd = 2)
 # corremos la siguiente instrucción
 
 set.seed(777) # Para poder reproducir la muestra en el futuro
-muestra <- rt(n = 1000, df = 7)
+muestra <- rt(n = 100000, df = 7)
 length(muestra); mdf <- as.data.frame(muestra)
 tail(mdf)
 
