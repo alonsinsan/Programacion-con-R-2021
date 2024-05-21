@@ -45,18 +45,18 @@ ggplot(Default[-train, ],
 # considerados son aquellos obtenidos al variar los valores de los 
 # parámetros `cost` y `gamma`. Kernel Radial
 
-#tune.rad = tune(svm, default~., data = Default[train,], 
-#                kernel = "radial", 
-#                ranges = list(
-#                  cost = c(0.1, 1, 10, 100, 1000), 
-#                  gamma = seq(0.01, 10, 0.5)
-#                ) 
-#)
+tune.rad = tune(svm, default~., data = Default[train,], 
+                kernel = "radial", 
+                ranges = list(
+                  cost = c(0.1, 1, 10, 100, 1000), 
+                  gamma = seq(0.01, 10, 0.5)
+                ) 
+)
 
 # Se ha elegido el mejor modelo utilizando *validación cruzada de 10 
 # iteraciones*
 
-# summary(tune.rad)
+summary(tune.rad)
 
 # Aquí un resumen del modelo seleccionado
 

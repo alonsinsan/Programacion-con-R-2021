@@ -12,23 +12,29 @@
 
 # Primero debemos establecer nuestro directorio de trabajo y el archivo
 # de datos (nyc.csv) que importaremos a R deberá de estar en este directorio
-
-nyc <- read.csv("nyc.csv", header = TRUE)
+library(dplyr)
+nyc <- read.csv("Ejemplo-02/nyc.csv", header = TRUE)
 
 # Observamos algunas filas y la dimensión del data frame
 
 head(nyc, 2); tail(nyc, 2); dim(nyc)
 attach(nyc)
-
+plot(nyc %>%
+       select(Price, Food, Decor, Service, East))
+a <- cor(nyc %>%
+      select(Price, Food, Decor, Service, East))
 # Llevamos a cabo el ajuste de un modelo
 # Y = beta0 + beta1*Food + beta2*Decor + beta3*Service + beta4*East + e
-
+otrodf <- nyc %>%
+  select(Price, Food, Decor, Service, East)
 m1 <- lm(Price ~ Food + Decor + Service + East)
-
+m1 <- lm(Price~., data = otrodf)
+# Price = b0 + b1*Food + b2*Decor + b3*Service +b4*East + e
+m2 <- lm(Price~Food+Decor, data = nyc)
 # Obtenemos un resumen
 
 summary(m1)
-
+summary(m2)
 # Ajustamos nuevamente un modelo pero ahora sin considerar la variable Service
 # ya que en el resultado anterior se observó que su coeficiente de regresión
 # no fue estadísticamente significativo
@@ -57,7 +63,7 @@ summary(m2)
 #           + beta5*Food*East + beta6*Decor*East + beta7*Service*East + e (Completo)
 
 mfull <- lm(Price ~ Food + Decor + Service + East + 
-              Food:East + Decor:East + Service:East)
+              Food:East + Decor:East + Service:East, data = nyc)
 
 # Note como ninguno de los coeficientes de regresión para los
 # términos de interacción son estadísticamente significativos
@@ -123,6 +129,7 @@ m1 <- lm(Price ~ Food + Decor + Service + East)
 summary(m1)
 StanRes1 <- rstandard(m1)
 par(mfrow = c(2, 2))
+plot(m2)
 plot(Food, StanRes1, ylab = "Residuales Estandarizados")
 plot(Decor, StanRes1, ylab = "Residuales Estandarizados")
 plot(Service, StanRes1, ylab = "Residuales Estandarizados")
@@ -132,7 +139,7 @@ dev.off()
 # Finalmente mostramos una gráfica de Y, el precio contra los valores
 # ajustados 
 
-plot(m1$fitted.values, Price, xlab = "Valores ajustados", ylab = "Price")
+plot(m2$fitted.values, Price, xlab = "Valores ajustados", ylab = "Price")
 abline(lsfit(m1$fitted.values, Price))
 
 # Inspirado en:

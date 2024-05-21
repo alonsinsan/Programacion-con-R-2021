@@ -5,7 +5,7 @@
 
 # Leemos nuestros datos con la función read.table
 
-production <- read.table("production.txt", header = TRUE)
+production <- read.table("Ejemplo-01/production.txt", header = TRUE)
 
 # Los datos que importamos a R se encuentran como data frame con nombre 
 # production. Aplicamos la función attach al data frame production para
@@ -17,13 +17,17 @@ attach(production)
 
 plot(RunSize, RunTime, xlab = "Tamaño de ejecución", 
      ylab = "Tiempo de ejecución", pch = 16)
+library(ggplot2)
+ggplot(production) +
+  geom_point(aes(x=RunSize, y = RunTime)) +
+  ggtitle("Tamaño de ejecución vs Tiempo de ejecución")
 
 # Ajustamos un modelo de regresión lineal simple con la función lm, en donde
 # la variable de respuesta es RunTime y la variable predictora es RunSize. 
 # Guardamos nuestro modelo ajustado con el nombre de m1
 
 m1 <- lm(RunTime~RunSize)
-
+# RunTIme = bo + b1*RunSize + e
 # Obtenemos un resumen de nuestro modelo ajustado mediante la función `summary`
 
 summary(m1)
@@ -60,7 +64,10 @@ text(x = 350, y = 160, expression(paste('Recta estimada:',
                                         ' ',
                                         hat(y)[i] == 149.74770 + 0.25924*x[i])),
      adj = 1, font = 2)
-
+# gráfica de ggplot
+ggplot(production, aes(x=RunSize, y =RunTime)) + 
+  geom_point() +
+  geom_smooth(method = lm, se = F)
 # Residuales
 
 points(189, 215, pch=16, col = "red") # Punto muestral

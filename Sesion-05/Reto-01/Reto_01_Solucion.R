@@ -11,7 +11,7 @@
 # Establezca primero un directorio de trabajo donde
 # deberán estar los datos a importar
 rm(list = ls()) # Para eliminar objetos creados previamente
-datos <- read.csv("datoslineal.csv")
+datos <- read.csv("Reto-01/datoslineal.csv")
 attach(datos)
 
 plot(x, y, main = "Gráfico de dispersión") # 1
