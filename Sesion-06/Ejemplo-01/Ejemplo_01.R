@@ -46,7 +46,7 @@ dev.off()
 
 # Serie de producción de electricidad, cerveza y chocolate
 
-CBE <- read.csv("cbe.csv", header = TRUE)
+CBE <- read.csv("Ejemplo-01/cbe.csv", header = TRUE)
 CBE[1:4,]
 class(CBE)
 
@@ -63,7 +63,7 @@ plot(cbind(Elec.ts, Beer.ts, Choc.ts),
 
 # Serie de temperaturas globales, expresadas como anomalías de las medias mensuales
 
-Global <- scan("global.txt")
+Global <- scan("Ejemplo-01/global.txt")
 Global.ts <- ts(Global, st = c(1856, 1), end = c(2005, 12), fr = 12)
 Global.annual <- aggregate(Global.ts, FUN = mean)
 plot(Global.ts, xlab = "Tiempo", ylab = "Temperatura en Â°C", main = "Serie de Temperatura Global",
@@ -84,6 +84,7 @@ plot(New.series, xlab = "Tiempo", ylab = "Temperatura en Â°C", main = "Serie d
 # Modelo Aditivo
 
 # Se debe elegir entre el modelo aditivo o el modelo multiplicativo cuando sea razonable suponer la descomposición
+plot(Elec.ts)
 Elec.decom.A <- decompose(Elec.ts)
 
 plot(Elec.decom.A, xlab = "Tiempo", 

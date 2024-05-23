@@ -4,7 +4,7 @@
     
 # Serie de Producción de Electricidad de Australia
 
-CBE <- read.csv("cbe.csv", header = TRUE)
+CBE <- read.csv("Ejemplo-03/cbe.csv", header = TRUE)
 Elec.ts <- ts(CBE[, 3], start = 1958, freq = 12)
 plot(Elec.ts, xlab = "", ylab = "")
 title(main = "Serie de Producción de Electricidad Australiana",
@@ -83,7 +83,8 @@ title(main = "Autocorrelaciones para los Residuales del Ajuste",
 
 Beer.1991 <- predict(Beer.ima, n.ahead = 12)
 sum(Beer.1991$pred)
-
+s <- matrix(Beer.ts,ncol=12, byrow=T)
+apply(s,1,sum)
 #### Modelos Arima estacionales
 
 # Procedimiento de ajuste

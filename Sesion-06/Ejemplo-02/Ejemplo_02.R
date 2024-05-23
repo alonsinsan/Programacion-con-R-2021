@@ -20,7 +20,7 @@ title(ylab = "Densidad", xlab = "Valores simulados de la distribución normal es
 
 ###
 
-set.seed(2)
+set.seed(21212)
 acf(rnorm(100), main = "")
 title(main = "Función de Autocorrelación Muestral", 
       sub = "Valores simulados de la distribución normal estandar")
@@ -111,7 +111,7 @@ x.ar$ar + c(-2, 2)*sqrt(x.ar$asy.var)
 
 # Serie de temperaturas globales, expresadas como anomalías de las medias mensuales: Ajuste de un modelo AR
 
-Global <- scan("global.txt")
+Global <- scan("Ejemplo-02/global.txt")
 Global.ts <- ts(Global, st = c(1856, 1), end = c(2005, 12), fr = 12)
 Global.annual <- aggregate(Global.ts, FUN = mean)
 plot(Global.ts, xlab = "Tiempo", ylab = "Temperatura en Â°C", 
@@ -195,7 +195,8 @@ title(main = "Correlograma para un proceso MA(3) simulado",
 
 x.ma <- arima(x, order = c(0, 0, 3))
 x.ma
-
+a <- stats::predict(x.ma, n.ahead=3)
+plot(c(x[950:1000],a$pred) , type = 'l')
 ####################################################################################################################################################
 
 # Modelos ARMA(p, q)
@@ -212,12 +213,15 @@ title(main = "Serie simulada", xlab = "Tiempo",
 #
 
 coef(arima(x, order = c(1, 0, 1)))
-
+mod.ar <- arima(x, order = c(1, 0, 1))
+b <- stats::predict(mod.ar, n.ahead = 5)
+plot(x[9950:10000], type='l')
+plot(c(x[9950:10000],b$pred), type='l')
 #### Predicción
 
 # Serie de producción de electricidad
 
-CBE <- read.csv("cbe.csv", header = TRUE)
+CBE <- read.csv("Ejemplo-02/cbe.csv", header = TRUE)
 Elec.ts <- ts(CBE[, 3], start = 1958, freq = 12)
 plot(Elec.ts, xlab = "", ylab = "")
 title(main = "Serie de Producción de Electricidad",
