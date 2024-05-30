@@ -30,8 +30,8 @@ dbListTables(my_db)
 
 # Obtener los primeros 5 registros de Country
 
-my_db %>% tbl("Country") %>% head(5) # library(dplyr)
-
+my_db %>% tbl("Country") %>% head(5)
+dbGetQuery(conn, "select * from Country limit 5")# library(dplyr)
 # Obtener los primeros 5 registros de CountryLanguage
 
 my_db %>% tbl("CountryLanguage") %>% head(5)
@@ -46,7 +46,7 @@ conn <- dbConnect(
   host = "shiny-demo.csa7qlmguqrf.us-east-1.rds.amazonaws.com",
   username = "guest",
   password = "guest")
-
+dbGetQuery(conn, "select * from City limit 5")
 rs <- dbSendQuery(conn, "SELECT * FROM City LIMIT 5;")
 
 dbFetch(rs)

@@ -20,7 +20,7 @@ str(JsonData)                       # Vemos la naturaleza de sus variables
 # Finalmente ya que pudimos acceder al contenido del Json, también podemos 
 # realizar la manipulación de los datos dentro del Json, por ejemplo:
   
-sqrt(JsonData$Mobile)
+JsonData[["Sqrt Mobile"]] <- sqrt(JsonData$Mobile)
 
 # Para entrar a las demás variables recuerda que puedas usar el operador de $, 
 # es decir, JsonData$
@@ -74,6 +74,8 @@ library(rvest)
 theurl <- "https://solarviews.com/span/data2.htm"
 file <- read_html(theurl)    # Leemos el html
 # Selecciona pedazos dentro del HTML para identificar la tabla
+summary(file)
+str(file)
 
 tables <- html_nodes(file, "table")  
 # Hay que analizar 'tables' para determinar cual es la posición en la lista 

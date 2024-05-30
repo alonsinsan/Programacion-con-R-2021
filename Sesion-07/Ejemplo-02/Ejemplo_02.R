@@ -54,8 +54,41 @@ pop.3
 # libreria dplyr
 
 library(dplyr)
-pop50.mex <-  DataDB %>% filter(CountryCode == "MEX" ,  Population > 50000)   # Ciudades del país de México con más de 50,000 habitantes
+pop50.mex <-  DataDB %>% 
+  filter(CountryCode == "MEX" ,  Population > 50000) %>%
+  arrange(-Population)# Ciudades del país de México con más de 50,000 habitantes
 
 head(pop50.mex)
 
 unique(DataDB$CountryCode)   # Países que contiene la BDD
+#################################################################################
+dbListFields(MyDataBase, 'City')
+dbListFields(MyDataBase, 'Country')
+dbListFields(MyDataBase, 'CountryLanguage')
+# ¿Cuántas personas por país hablan el lenguaje oficial?
+# Camino 1
+# Jalo cada una de las tablas y tengo mis dfs que asemejan a cada tabla
+city <- dbGetQuery(MyDataBase, "select * from City")
+country <- dbGetQuery(MyDataBase, "select * from Country")
+language <- dbGetQuery(MyDataBase, "select * from CountryLanguage")
+
+lenguaje_por_pais <- language %>%
+  filter(IsOfficial == "T") %>%
+  merge(country, by.x = "CountryCode", by.y = "Code", all.y=T) %>%
+  mutate(poblacionLenguajeOficial = (Percentage/100)*Population) %>%
+  group_by(Name) %>%
+  summarize(poblacionLenguajeOficial = sum(poblacionLenguajeOficial))
+
+# Camino 2
+# Hago un query, que haga los cruces necesarios
+query <- "SELECT c.*, l.* 
+FROM Country c 
+LEFT JOIN CountryLanguage l 
+ON c.CODE = l.CountryCode
+WHERE l.IsOfficial = 'T';"
+
+data_merge <- dbGetQuery(MyDataBase, query)
+camino2 <- data_merge %>%
+  mutate(poblacionLenguajeOficial = (Percentage/100)*Population) %>%
+  group_by(Name) %>%
+  summarize(poblacionLenguajeOficial = sum(poblacionLenguajeOficial))
