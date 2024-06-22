@@ -18,15 +18,16 @@
 # Listas
 
 (milista <- list(nombre = "Pepe", no.hijos = 3, edades.hijos = c(4, 7, 9)))
-
+milista2 <- list()
+milista2[[1]] <- milista
 # propiedades de la lista
 
 str(milista)
 
 # Extrayendo elementos de la lista, recuerda que para ingresar se debe usar el símbolo $
   
-milista$nombre
-
+milista$edades.hijos
+milista[["no.hijos"]]
 # Creando data frames
 
 x <- 6:8
@@ -61,6 +62,9 @@ dim(mifile)
 
 mifile$sexo <- c("H", "M", "H")
 mifile
+mifile["altura"] <- c(1.70,1.54, 1.63)
+mifile["peso"] <- c(65,60,73)
+mifile["IMC"] <- mifile$peso/(mifile$altura^2)
 
 # Si fuera el caso, se puede eliminar una columna
 

@@ -18,7 +18,7 @@
 
 # Crear Matrices. 
 
-(m <- matrix(1:9, nrow = 3, ncol = 3))
+(m <- matrix(1:27, nrow = 9, ncol = 3, byrow=T))
 
 # Extrayendo la primera entrada
 
@@ -26,7 +26,7 @@ m[1,1]
 
 # Extrayendo la primer columna, con todas sus filas
 
-m[ ,1]
+m[3:7,1]
 
 # ¿Qué sucede si se suma un vector y una matriz?
 
@@ -67,8 +67,12 @@ apply(n, 1, mean)
 apply(n, 2, sort)
 
 # Algunas operaciones básicas de matrices
-
+m1 <- sum.vecmat
+m*m1
 # Producto matricial: A %*% B
+dim(m)
+dim(m1)
+m%*%t(m1)
 # Producto elemento a elemento: A*B
 # Traspuesta: t(A)
 # Determinante: det(A)
