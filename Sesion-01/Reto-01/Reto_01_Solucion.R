@@ -10,7 +10,7 @@ class(netflix)
 
 # titulos que se estrenaron despues del 2015 
 
-net.2015 <- netflix[netflix$release_year > 2015, ]
-
+net.2015 <- netflix[netflix$release_year > 2015,]
+min(net.2015$release_year)
 # escritura del archivo
-write.csv(net.2015, "res.netflix.csv")
+write.csv(net.2015, "res.netflix.csv", row.names = F)

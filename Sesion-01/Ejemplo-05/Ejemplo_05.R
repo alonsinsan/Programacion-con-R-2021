@@ -18,7 +18,6 @@ install.packages("ggplot2") #siempre lleva  comillas
 # Una vez que se instaló, se debe de cargar
 
 library(ggplot2) # Se omite el uso de las comillas
-
 # Otro ejemplo
 
 install.packages("dplyr")

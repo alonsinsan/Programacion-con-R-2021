@@ -15,3 +15,4 @@ which.max(tAmazon["Price",])
 
 # libro con menor precio
 which.min(tAmazon["Price",])
+

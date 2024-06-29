@@ -25,12 +25,12 @@ setwd("c:/Users/User/Documents/Bedu/") # Depende del usuario
 
 # La función read.csv será util para leer fichero .csv
 
-read.csv("bestsellers with categories.csv") # El archivo csv debe estar en el directorio de trabajo
+bestsellers <- read.csv("C:/Users/alonso.sandoval/Documents/personal/BEDU/bedu clase Sabados/Programacion-con-R-2021/Sesion-01/Data/bestsellers with categories.csv") # El archivo csv debe estar en el directorio de trabajo
 
 # se puede asignar a un objeto el fichero leido anteriormente
 
-amazon.books <- read.csv("bestsellers with categories.csv")
-tail(amazon.books); str(amazon.books)
+amazon.books <- read.csv("Data/bestsellers with categories.csv")
+head(amazon.books);tail(amazon.books); str(amazon.books)
 
 # También se puede leer el fichero directamente desde una URL
 
@@ -44,3 +44,4 @@ dim(amazon.books)
 # El tipo de objeto se puede saber utilizando class()
 
 class(amazon.books)
+typeof(amazon.books)
