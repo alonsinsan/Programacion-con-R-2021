@@ -1,7 +1,8 @@
 library(dplyr) # Para usar el operador %>%
-data <- read.csv("../Sesion-03/Data/boxp.csv")
+data <- read.csv("Data/boxp.csv")
 head(data)
 names(data)
+summary(data)
 
 # Utilizando la función hist
 
@@ -26,11 +27,12 @@ data %>%
 data %>%
   ggplot() + 
   aes(Mediciones) +
-  geom_histogram(binwidth = 10, col="black", fill = "blue") + 
+  geom_histogram(binwidth = 10, col="black", fill = "yellow") + 
   ggtitle("Histograma de Mediciones") +
   ylab("Frecuencia") +
   xlab("Mediciones") + 
-  theme_light()
+  theme_light() +
+  annotate("text", x= 170, y = 75, label = "A partir del 100 \n disminuye el número de observaciones")
 
 # Tanto hist(), como ggplot() + aes() + geom_histogram() son útiles para generar los histogramas, tu decide cual te funciona mejor.
 

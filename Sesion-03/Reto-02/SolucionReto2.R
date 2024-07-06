@@ -1,5 +1,6 @@
 # NAB. Reto 2
-
+library(ggplot2)
+library(ggExtra)
 
 # Full players stats from the 2014-2015 season + personal details such as height. weight, etc.
 
@@ -11,11 +12,11 @@
 
 
 # Leyendo los datos de la NBa, 
-nba <- read.csv("players_stats.csv")
+nba <- read.csv("Reto-02/players_stats.csv")
 names(nba)
 
 # 1. Histograma de los minuntos totales de losjugadores y la media
-mnba <-mean(nba$MIN)
+mnba <- mean(nba$MIN)
 ggplot(nba, aes(MIN))+ 
   geom_histogram(binwidth = 30, col="black", fill = "blue") + 
   ggtitle("Histograma de Minutos por jugador", paste("Media=",mnba)) +
@@ -25,8 +26,9 @@ ggplot(nba, aes(MIN))+
   theme_light()
 
 # 2. Histograma de edad y media
+hist(nba$Age)
 
-ma.nba <-mean(na.omit(nba$Age))
+ma.nba <- mean(nba$Age, na.rm=T)
 
 ggplot(nba, aes(Age))+ 
   geom_histogram(binwidth = 2, col="black", fill = "blue") + 
@@ -39,8 +41,12 @@ ggplot(nba, aes(Age))+
 #3. Scatterplot de Peso y Altura
 
 p <- nba %>% ggplot(aes(Weight, Height)) +
-       geom_point()
-p
+       geom_point() +
+  geom_hline(yintercept= 197)
+
+ggMarginal(p, type="histogram")
+
+p + geom_smooth(method = 'lm', se =T)
 
 (lmnba <- coef(lm(Height ~ Weight, data = nba)))
 #> (Intercept)          MIN 
