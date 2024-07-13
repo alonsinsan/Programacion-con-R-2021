@@ -16,7 +16,7 @@ text(x = 3, y = 0.5, labels = expression("DE(X) = " ~ 1/lambda == 1/2), col = 4)
 # Ahora obtenemos una muestra aleatoria de tamaño n = 4 de la distribución exponencial considerada
 
 set.seed(10) # Para reproducir posteriormente la muestra
-(m1.4 <- rexp(n = 4, rate = 2))
+(m1.4 <- rexp(n = 3, rate = 2))
 # Obtenemos la media de la muestra generada
 
 mean(m1.4)

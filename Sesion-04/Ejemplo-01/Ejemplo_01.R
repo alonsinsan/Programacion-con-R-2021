@@ -19,14 +19,15 @@ library(reshape2)
 # Para obtener P(X = 20), es decir, la probabilidad de observar
 # 20 éxitos exactamente, en `R` ejecutamos
 
-dbinom(x = 20, size = 30, prob = 0.2)
+dbinom(x = 20, size = 30, prob = 0.5)
 
 #### Función de distribución
 
 # Para obtener P(X <= 20), es decir, la probabilidad de observar
 # a lo más 20 éxitos, en `R` corremos
 
-pbinom(q = 20, size = 30, prob = 0.2)
+x <- pbinom(q = seq(0,30), size = 30, prob = 0.2)
+plot(x, type = "l")
 
 # Para encontrar el valor más pequeño b tal que P(X <= b) >= 0.35,
 # es decir, el cuantil de orden 0.35, usamos
@@ -155,7 +156,7 @@ dev.off() # Para mostrar solo una gráfica
 # el cuantil de orden 0.75, ejecutamos
 
 (b <- qnorm(p = 0.75, mean = 175, sd = 6)) 
-
+b1 <- qnorm(p=0.25, mean =175, sd=6)
 # Comprobamos
 
 pnorm(b, 175, 6)
@@ -166,7 +167,7 @@ plot(x, y, type = "l", xlab="", ylab="")
 title(main = "Densidad de Probabilidad Normal", sub = expression(paste(mu == 175, " y ", sigma == 6)))
 
 axis(side = 1, at = b, font = 2, padj = 1, lwd = 2)
-
+axis(side = 1, at = b1, font=2, padj=1, lwd=2)
 #### Muestras aleatorias
 
 # Para generar una muestra aleatoria de tamaño n = 1000 de la v.a. X
@@ -191,7 +192,7 @@ ggplot(mdf, aes(muestra)) +
   labs(x = 'Valores obtenidos', y = 'Frecuencia')+
   theme_dark() +
   theme(plot.title = element_text(hjust = 0.5, size = 16))  
-
+boxplot(muestra)
 #### Regla empírica
 
 mean <- 175; sd <- 6
@@ -279,7 +280,7 @@ axis(side = 1, at = d, font = 2, padj = 1, lwd = 2)
 # corremos la siguiente instrucción
 
 set.seed(777) # Para poder reproducir la muestra en el futuro
-muestra <- rt(n = 1000, df = 7)
+muestra <- rt(n = 10, df = 7)
 length(muestra); mdf <- as.data.frame(muestra)
 tail(mdf)
 
