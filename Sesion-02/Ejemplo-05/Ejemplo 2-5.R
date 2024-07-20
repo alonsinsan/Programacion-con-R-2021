@@ -5,8 +5,13 @@
 # La función apply regresa un vector, arreglo o lista de valores obtenidos 
 # al aplicar una función a los márgenes de un arreglo o matriz. Por ejemplo
 
-X <- matrix(1:49, ncol = 7)
+X <- data.frame(matrix(1:49, ncol = 7))
 X
+res <- c()
+for(i in 1:7){
+  res[i] <- mean(X[i,])
+}
+# en lugar del for anterior
 apply(X, 1, mean) # cálculo de la media para las filas
 apply(X, 2, median) # cálculo de la mediana para las columnas
 
@@ -39,11 +44,11 @@ download.file(url = u1314, destfile = "SP1-1314.csv", mode = "wb")
 # de strings de la siguiente manera
 
 dir()
-
+files <- list.files(pattern = "*.csv")
 # podemos leer con una sola instrucción los archivos descargados
 # usando la función lapply de la siguiente manera
 
-lista <- lapply(dir(), read.csv) # Guardamos los archivos en lista
+lista <- lapply(files, read.csv) # Guardamos los archivos en lista
 
 # los elementos de lista son los archivos csv leidos y se encuentran
 # como data frames
@@ -57,7 +62,7 @@ head(lista[[1]]); head(lista[[2]]); head(lista[[3]]); head(lista[[4]])
 
 # Función do.call
 
-data <- do.call(rbind, lista)
+data <- do.call(rbind, lista) #también bind_rows
 head(data)
 dim(data)
 

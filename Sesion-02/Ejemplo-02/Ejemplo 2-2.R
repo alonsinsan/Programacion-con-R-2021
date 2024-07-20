@@ -1,26 +1,26 @@
-# 2.1 Características de los objetos (str sobre df, summary, head y view) y funciones
+# 2.1 CaracterC-sticas de los objetos (str sobre df, summary, head y view) y funciones
 
-# Función str
+# FunciC3n str
 
-# str es una función que muestra de manera compacta la estructura interna 
+# str es una funciC3n que muestra de manera compacta la estructura interna 
 # de un objeto de R. Por ejemplo, si usamos como argumento de str el 
 # conjunto de datos iris que podemos encontrar en R
 
 str(iris)
 
-# entonces la salida de la instrucción nos muestra el tipo de objeto, 
-# número de observaciones y de variables, así como el tipo de dato al 
+# entonces la salida de la instrucciC3n nos muestra el tipo de objeto, 
+# nC:mero de observaciones y de variables, asC- como el tipo de dato al 
 # que corresponde cada variable.
 
-# Función summary
+# FunciC3n summary
 
-# La función summary es una función genérica usada para obtener resumenes 
+# La funciC3n summary es una funciC3n genC)rica usada para obtener resumenes 
 # de diferentes objetos de R, por ejemplo
 
 summary(1:100)
 summary(mtcars)
 
-# También es útil para obtener resumenes de los resultados de diferentes
+# TambiC)n es C:til para obtener resumenes de los resultados de diferentes
 # ajustes a modelos
 
 set.seed(57)
@@ -30,44 +30,45 @@ y <- 5 + 2*x + e
 modelo <- lm(y~x)
 summary(modelo)
 
-# Función head
+# FunciC3n head
 
-# La función head devuelve la primera parte de un data frame, tabla, 
-# matriz, vector o función. Por ejemplo, al usar el data frame mtcars
-# como argumento de la función head, se devolverán únicamente las
+# La funciC3n head devuelve la primera parte de un data frame, tabla, 
+# matriz, vector o funciC3n. Por ejemplo, al usar el data frame mtcars
+# como argumento de la funciC3n head, se devolverC!n C:nicamente las
 # primeras seis filas del data frame
 
 head(mtcars)
 
-# la función tail funciona de manera similar, pero en lugar de devolver
-# la primera parte de un objeto, devuelve la última parte de este,
-# por ejemplo, al ejecutarse la siguiente instrucción
+# la funciC3n tail funciona de manera similar, pero en lugar de devolver
+# la primera parte de un objeto, devuelve la C:ltima parte de este,
+# por ejemplo, al ejecutarse la siguiente instrucciC3n
 
 tail(mtcars)
 
-# se devolverán las últimas seis filas del data frame
+# se devolverC!n las C:ltimas seis filas del data frame
 
-# Función view
+# FunciC3n view
 
-# La función View aplicada a un objeto de R como un data frame, 
-# invoca un visor de datos al estilo de una hoja de cálculo, por ejemplo
+# La funciC3n View aplicada a un objeto de R como un data frame, 
+# invoca un visor de datos al estilo de una hoja de cC!lculo, por ejemplo
 
 View(iris)
 
-# Función que calcula la moda
+# FunciC3n que calcula la moda
 
-# En R también podemos crear nuestras propias funciones, por ejemplo
+# En R tambiC)n podemos crear nuestras propias funciones, por ejemplo
 
 moda <- function(vector){
 f.abs <- table(vector) # frecuencias absolutas
-max.f.abs <- max(f.abs) # obtenemos la máxima frecuencia absoluta
-pos.max <- which(f.abs == max.f.abs) # posición(es) de la(s) máxima(s) frecuencia(s) absoluta(s)
+max.f.abs <- max(f.abs) # obtenemos la mC!xima frecuencia absoluta
+pos.max <- which(f.abs == max.f.abs) # posiciC3n(es) de la(s) mC!xima(s) frecuencia(s) absoluta(s)
 print("La(s) moda(s) es(son): ")
 print(names(f.abs[pos.max]))
 paste("Con una frecuencia de: ", unique(as.vector(f.abs[pos.max])))
 }
 
-x <- sample(1:100, 100, replace = T) # Tomamos una muestra aleatoria de tamaño 100 con reemplazo de los primeros 100 números naturales
+x <- sample(1:100, 100, replace = T) # Tomamos una muestra aleatoria de tamaC1o 100 con reemplazo de los primeros 100 nC:meros naturales
 table(x) # obtenemos las frecuencias absolutas de los valores de la muestra
 moda(x) # obtenemos la moda de los valores de la muestra
-
+y <- sample(1:1000, 1000, replace =T)
+moda(y)

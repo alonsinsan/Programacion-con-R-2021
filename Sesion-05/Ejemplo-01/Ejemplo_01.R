@@ -1,3 +1,4 @@
+library(ggplot2)
 # Ejemplo 1. Regresión Lineal Simple
 
 # Primero hay que establecer el directorio de trabajo y este deberá contener 
@@ -18,11 +19,17 @@ attach(production)
 plot(RunSize, RunTime, xlab = "Tamaño de ejecución", 
      ylab = "Tiempo de ejecución", pch = 16)
 
+ggplot(production) + 
+  geom_point(aes(x = RunSize, y = RunTime)) +
+  ggtitle("Tiempos de ejecución por tamaño de lote") + 
+  xlab("Tamaño de ejecución") +
+  ylab("Tiempo de ejecución")
+
 # Ajustamos un modelo de regresión lineal simple con la función lm, en donde
 # la variable de respuesta es RunTime y la variable predictora es RunSize. 
 # Guardamos nuestro modelo ajustado con el nombre de m1
 
-m1 <- lm(RunTime~RunSize)
+m1 <- lm(RunTime~RunSize, data = production) # RunTime = m*RunSize + b
 
 # Obtenemos un resumen de nuestro modelo ajustado mediante la función `summary`
 
@@ -71,6 +78,10 @@ points(173, 166, pch=16, col = "red") # Punto muestral
 149.74770 + 0.25924 * 173 # Valor y sobre la recta estimada
 lines(c(173, 173), c(166, 194.5962), col = "red")
 
+ggplot(production, aes(x = RunSize, y = RunTime)) +
+  geom_point() + 
+  geom_smooth(method = "lm")
+
 # Acontinuación encontramos el cuantil de orden 0.975 de la distribución
 # t de Student con 18 (n - 2) grados de libertad. En total tenemos n = 20 
 # observaciones en nuestro conjunto de datos. Estamos encontrando el valor 
@@ -92,9 +103,8 @@ round(confint(m1, level = 0.95), 3)
 # poblacional en algunos valores de X (RunSize)
 
 RunSize0 <- c(50,100,150,200,250,300,350) # Algunos posibles valores de RunSize
-
-(conf <- predict(m1, newdata = 
-                   data.frame(RunSize = RunSize0), 
+new_df <- data.frame(RunSize = RunSize0)
+(conf <- predict(m1, newdata = new_df, 
                  interval = "confidence", level = 0.95))
 
 # Podemos visualizar gráficamente estos intervalos de confianza
@@ -138,5 +148,7 @@ dev.off()
 # [S.J. Sheather, A Modern Approach to Regression with R, DOI: 10.1007/978-0-387-09608-7_2, © Springer Science + Business Media LLC 2009](https://gattonweb.uky.edu/sheather/book/index.php)
 
 
+# Pronóstico hacia adelante
 
-
+new_df_adelante <- data.frame(RunSize= c(600,700,800))
+s1 <- predict(m1, new_df_adelante, interval ="confidence", 0.95)

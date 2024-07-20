@@ -15,10 +15,13 @@
 # Primero vamos a crear algunas variables de diferentes tipos:
   
 (var.hola <- "Hola Mundo")
+var.hola <- "Hola Mundo"
 (var.number <- 5L)
 (var.double <- 2.7076)
 (var.logical <- T)
-(vector <- c(1,2))
+var.logical <- TRUE
+var.logical_fake <- "TRUE"
+(vector <- c(3,"4"))
 
 # Ahora con la función class veremos la tipología de las variables
 
@@ -44,17 +47,17 @@ length(b)
 
 # Se puede acceder a las coordenadas de un vector haciendo uso de [] y su posición
 
-a[1]
+a[1:3]
 b[4]
-
+c <- 1:100
 # Para unir 2 vectores
 
-c(a,b)
+d <- c(a,b)
 
 # Organizarlos con la función sort, cambia la F por T y observa que ocurre
 
-sort(c(a,b), decreasing = F)
-
+sort(d, decreasing = F)
+?sort
 # Otra forma de generar el vector es de la siguiente manera, utilizando ":"
 
 3:12  # así de sencillo es
@@ -83,7 +86,7 @@ rep(b, 3)
 # Reciclaje, al hacer operaciones entre vectores, R repetirá los valores del vector, hasta alcanzar la dimensión requerida
 
 c(1, 2) + c(7, 8, 9, 10)
-
+c(1,2,1,2) + c(7,8,9,10)
 # Existen varias operaciones entre vectores, intenta probar algunas de las siguientes:
   
 a + b     

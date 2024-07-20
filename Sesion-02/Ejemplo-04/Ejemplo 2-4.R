@@ -20,4 +20,9 @@ df1 <- data.frame(x = 1:5, y = 6:10, z = 16:20)
 df2 <- data.frame(x = 51:55, y = 101:105, z = 151:155)
 df1; df2
 rbind(df1, df2)
-
+# estas funciones también existen en dplyr bind_rows, bind_cols
+library(dplyr)
+df1 <- data.frame(x = 1:5, y = 6:10, z = 16:20)
+df2 <- data.frame(x = 51:55, y = 101:105, a = 151:155)
+rbind(df1,df2)
+bind_rows(df1,df2)
