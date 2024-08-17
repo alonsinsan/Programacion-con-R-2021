@@ -1,10 +1,13 @@
 
 # Lectura de los datos
 library(ggplot2)
-altura <- read.csv("../BD_Altura_Alunos.csv", sep = ";")
+data <- read.csv("Reto-01/BD_Altura_Alunos.csv", sep = ";", col.names = c("alumno", "altura")) # camino 1
+data2 <- read.csv("Reto-01/BD_Altura_Alunos.csv", sep = ";")
+colnames(data2) <- c("alumno", "altura")
 
+data <- as.data.frame(data)
 #realizando el histograma con la función hist()
-hist(altura$Altura, 
+hist(data$Altura, 
      breaks = 20,
      main = " Histograma de alturas",
      ylab = "Frecuencia",
@@ -13,7 +16,7 @@ hist(altura$Altura,
 
 #realizando el histograma con la función ggplot()
 ggplot(altura, aes(Altura))+ 
-  geom_histogram(binwidth = 4, col="black", fill = "blue") + 
+  geom_histogram(bins = 20, col="black", fill = "blue") + 
   ggtitle("Histograma de Mediciones") +
   ylab("Frecuencia") +
   xlab("Alturas") + 

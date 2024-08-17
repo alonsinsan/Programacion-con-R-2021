@@ -122,7 +122,7 @@ plot(Global.annual, xlab = "Tiempo", ylab = "Temperatura en Â°C",
      sub = "Serie anual de temperaturas medias: 1856 a 2005")
 
 #
-
+acf(Global.annual)
 mean(Global.annual)
 Global.ar <- ar(Global.annual, method = "mle")
 Global.ar$order
@@ -176,7 +176,7 @@ set.seed(1)
 b <- c(0.8, 0.6, 0.4)
 x <- w <- rnorm(1000)
 for(t in 4:1000){
-  for(j in 1:3) x[t] <- x[t] + b[j]*w[t-j]
+  for(j in 1:3) x[t] <- x[t] + b[j]*w[t-j] # x[t] + b[1]*x[t-1] + b[2]*x[t-2] +b[3]*x[t-3]
 }
 
 plot(x, type = "l", ylab = expression(x[t]), xlab = "Tiempo t",
@@ -210,8 +210,8 @@ title(main = "Serie simulada", xlab = "Tiempo",
       sub = expression(x[t] == -0.6*x[t-1] + w[t] + 0.5*w[t-1]))
 
 #
-
-coef(arima(x, order = c(1, 0, 1)))
+acf(x)
+coef(arima(x, order = c(1, 0, 0)))
 
 #### Predicción
 
@@ -258,7 +258,7 @@ title(main = "Serie de residuales del modelo de regresión ajustado",
 
 best.order <- c(0, 0, 0)
 best.aic <- Inf
-for(i in 0:2)for(j in 0:2){
+for(i in 0:15)for(j in 0:15){
   model <- arima(resid(Elec.lm), order = c(i, 0, j))
   fit.aic <- AIC(model)
   if(fit.aic < best.aic){

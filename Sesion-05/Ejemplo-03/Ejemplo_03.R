@@ -74,7 +74,8 @@ mc <- table(true = Default[-train, "default"],
             pred = predict(best, 
                            newdata = Default[-train,]))
 mc
-
+predict(best, 
+        newdata = Default[-train,])
 # El porcentaje total de aciertos obtenido por el modelo usando el 
 # conjunto de prueba es el siguiente
 

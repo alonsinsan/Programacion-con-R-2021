@@ -13,13 +13,14 @@ str(airquality)
 # observamos la dimensión
 
 dim(airquality)
-
+summary(airquality)
 # Con la función `complete.cases` podemos averiguar cuales son aquellas filas
 # que no contienen ningún valor perdido (NA) y cuales son aquellas filas
 # que tienen al menos un valor perdido.
 
 bien <- complete.cases(airquality)
-
+View(airquality)
+airquality[bien,]
 # La variable bien, es un vector lógico con `TRUE` en las posiciones que 
 # representan filas de `airquality` en donde no hay NA's y con `FALSE`
 # en las posiciones que representan aquellas filas de `airquality` en donde
@@ -28,8 +29,8 @@ bien <- complete.cases(airquality)
 # Por tanto, podemos contar el número de filas en donde no hay NA´s de la 
 # siguiente manera
 
-sum(bien)
-
+sum(bien) # F = 0 y T =1
+mean(bien)
 # Podemos filtrar aquellas filas sin NA's de la siguiente manera
 
 airquality[bien,]
@@ -47,3 +48,4 @@ b <- complete.cases(data)
 (m2 <- apply(data[b,], 2, mean))
 
 identical(m1, m2)
+# na.omit(data) = data[complete_cases(data),]

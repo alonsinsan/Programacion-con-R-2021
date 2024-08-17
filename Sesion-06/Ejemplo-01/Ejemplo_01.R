@@ -1,7 +1,7 @@
 #### Técnicas descriptivas: gráficas, tendencias y variación estacional
 
 library(TSA)
-
+library(ggplot2)
 data(oilfilters); plot(oilfilters, type = "o", ylab = "Ventas", xlab = "Tiempo", main = "Ventas Mesuales ")
 plot(oilfilters, type = "l", ylab = "Ventas", xlab = "Tiempo",
                  main = "Ventas Mensuales de Filtro de Aceite",
@@ -18,13 +18,13 @@ AP
 class(AP)
 
 start(AP); end(AP); frequency(AP)
-
+s1 <- as.data.frame(AP); colnames(s1) <- "pasajeros"; s1["ind"] <- row.names(s1)
 summary(AP)
 
 plot(AP, ylab = "Pasajeros (1000's)", xlab = "Tiempo", 
      main = "Reserva de pasajeros aéreos internacionales", 
      sub = "Estados Unidos en el periodo 1949-1960")
-
+ggplot(s1) + geom_line(aes(x = ind,y=pasajeros, group = 1))
 ################################################
 
 layout(1:2)
@@ -64,8 +64,8 @@ plot(cbind(Elec.ts, Beer.ts, Choc.ts),
 # Serie de temperaturas globales, expresadas como anomalías de las medias mensuales
 
 Global <- scan("global.txt")
-Global.ts <- ts(Global, st = c(1856, 1), end = c(2005, 12), fr = 12)
-Global.annual <- aggregate(Global.ts, FUN = mean)
+Global.ts <- ts(Global, st = c(1856, 1), end = c(2005, 12), fr = 12); frequency(Global.ts)
+Global.annual <- aggregate(Global.ts, FUN = mean); frequency(Global.annual)
 plot(Global.ts, xlab = "Tiempo", ylab = "Temperatura en Â°C", main = "Serie de Temperatura Global",
      sub = "Serie mensual: Enero de 1856 a Diciembre de 2005")
 plot(Global.annual, xlab = "Tiempo", ylab = "Temperatura en Â°C", main = "Serie de Temperatura Global",
@@ -85,7 +85,7 @@ plot(New.series, xlab = "Tiempo", ylab = "Temperatura en Â°C", main = "Serie d
 
 # Se debe elegir entre el modelo aditivo o el modelo multiplicativo cuando sea razonable suponer la descomposición
 Elec.decom.A <- decompose(Elec.ts)
-
+?decompose
 plot(Elec.decom.A, xlab = "Tiempo", 
      sub = "Descomposición de los datos de producción de electricidad")
 

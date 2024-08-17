@@ -5,7 +5,7 @@
 library(scales) # Para mejorar la lectura de las etiquetas  en el eje de las x de tipo fecha
 # Ahora vamos a leer nuestro archivo C19Mexico.csv con los infectados y muertos acumulados para cada fecha
 
-mex <- read.csv("C19Mexico.csv")
+mex <- read.csv("Data/C19Mexico.csv")
 
 head(mex); tail(mex)
 

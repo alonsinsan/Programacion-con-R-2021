@@ -1,22 +1,22 @@
 # Reto 1. Proceso AR(1)
 
 # 1. Simule un proceso AR(1) de la forma x[t] = 0.5 * x[t-1] + w[t] para
-# t = 1, 2, ..., 200 y muestre gráficamente la serie de tiempo obtenida
+# t = 1, 2, ..., 200 y muestre grC!ficamente la serie de tiempo obtenida
 
 # 2. Obtenga el correlograma y el correlograma parcial del proceso AR(1)
 # simulado
 
 # 3. Ajuste un modelo autorregresivo a la serie simulada utilizando la
-# función ar, observe el orden del módelo y el parámetro 
-# estimado (los paramétros estimados) 
+# funciC3n ar, observe el orden del mC3delo y el parC!metro 
+# estimado (los paramC)tros estimados) 
 
-# **Solución**
+# **SoluciC3n**
 
-# Simulación en R
+# SimulaciC3n en R
 
 # Un proceso AR(1) puede ser simulado en R como sigue:
 
-set.seed(1)
+set.seed(12)
 x <- w <- rnorm(200)
 for(t in 2:200) x[t] <- 0.5 * x[t-1] + w[t]
 plot(x, type = "l", xlab = "", ylab = "")

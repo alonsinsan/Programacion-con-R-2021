@@ -1,0 +1,16 @@
+Esquema de proyecto
+  Requerimientos
+    Dataset -> kaggle
+    Hacerse una pregunta de qué quiero resolver o qué quiero explorar con este dataset
+  Estructura
+    1. Lectura de datos
+      Archivos locales o
+      Lectura de una base de datos o
+      Lectura desde una URL
+    2. Limpieza de datos
+    3. Exploratorio de datos
+      Guía la pregunta del proyecto
+    4. Modelos lineales/Contraste de hipótesis/Pronóstico
+      Desarrollo del modelo aprovechando el exploratorio
+    5. Conclusiones
+      Responder la pregunta

@@ -18,7 +18,7 @@ Full players stats from the 2014-2015 season + personal details such as height. 
 
 2. Generar un histograma de edad (`Age`) y agregar una línea con la media
 
-3. Hacer un scatterplot de las variables `Weight` y  `Height` y observar la correlacón que existe entre ambas variables (1 sola gráfica)
+3. Hacer un scatterplot de las variables `Weight` y  `Height` y observar la correlación que existe entre ambas variables (1 sola gráfica)
 
 4. Utiliza la función `which.max` para saber quién es el jugador más alto, una vez hecho esto, presenta los resultados en una leyenda que diga "El jugador más alto es: `Name`, con una altura de: `Height`". Las unidades de altura deben ser en metros.
 
@@ -26,4 +26,4 @@ Full players stats from the 2014-2015 season + personal details such as height. 
 
 6. ¿Cuál es la altura promedio?, representa el resultado en una frase que diga: "La altura promedio es: ALTURA"
 
-7. Generar un scatterplot donde se representen las Asistencias totales (`AST.TOV`) vs Puntos (`PTS`), además has un face wrap con la posición (`Pos`). 
+7. Generar un scatterplot donde se representen las Asistencias totales (`AST.TOV`) vs Puntos (`PTS`), además haz un face wrap con la posición (`Pos`). 

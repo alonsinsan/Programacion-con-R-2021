@@ -20,6 +20,8 @@ z0
 # Supongamos que estamos interesados en encontrar la región de rechazo (de cola superior) con un nivel de significancia alpha = 0.05, debemos encontrar el valor z_{0.05} que satisface P(Z > z_{0.05}) = 0.05.
 
 (z.05 <- qnorm(p = 0.05, lower.tail = FALSE))
+x <- rnorm(1000,0,1)
+hist(x)
 # Como
 
 z0 > z.05
@@ -28,12 +30,13 @@ z0 > z.05
 # p-value El p-value lo podemos calcular como
 
 (pvalue <- pnorm(z0, lower.tail = FALSE))
+
 x <- seq(-4, 4, 0.01)
 y <- dnorm(x)
 plot(x, y, type = "l", xlab="", ylab="")
 title(main = "Densidad normal estándar", sub = expression(paste(mu == 0, " y ", sigma == 1)))
 
-polygon(c(z0, x[x>=z0], max(x)), c(0, y[x>=z0], 0), col="red")
+polygon(c(z0, x[x>=z.05], max(x)), c(0, y[x>=z.05], 0), col="red")
 axis(side = 1, at = z0, font = 2, padj = 1, lwd = 2)
 # Contraste de cola inferior
 # Dada una muestra aleatoria de tamaño n = 45
@@ -51,7 +54,7 @@ z0
 
 # Supongamos que estamos interesados en encontrar la región de rechazo (de cola inferior) con un nivel de significancia alpha = 0.05, debemos encontrar el valor z_{0.05} que satisface P(Z < z_{0.05}) = 0.05.
 
-(z.05 <- qnorm(p = 0.05))
+(z.05 <- qnorm(p = 0.05, lower.tail =TRUE))
 # Como
 
 z0 < z.05
@@ -131,6 +134,7 @@ title(main = "Densidad t de Student, 14 gl")
 
 polygon(c(t0, x[x>=t0], max(x)), c(0, y[x>=t0], 0), col="red")
 axis(side = 1, at = t0, font = 2, padj = 1, lwd = 2)
+#################################################
 t.test(x = muestra,
        alternative = "greater",
        mu = 170)
@@ -162,6 +166,7 @@ t0
 # p-value El p-value lo podemos calcular como
 
 (pvalue <- 2*pt(t0, df = 41, lower.tail = FALSE))
+
 t.test(x = m1, y = m2,
        alternative = "two.sided",
        mu = 0, paired = FALSE, var.equal = TRUE)
